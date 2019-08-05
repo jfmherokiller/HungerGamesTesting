@@ -5,6 +5,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import InnerGameMechanics from "./InnerGameMechanics"
+import Button from "react-bootstrap/Button";
 
 /*
 An example of that the playerObject we are passing is
@@ -29,7 +30,7 @@ class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
     }
     render() {
         return (
-            <button className="PlayRound" onClick={() => this.props.PlayerCallback()}> Play Round</button>
+            <Button className="PlayRound" onClick={() => this.props.PlayerCallback()}> Play Round</Button>
         );
     }
 }
@@ -139,20 +140,24 @@ class AddPlayer extends React.Component<{ PlayerCallback: Function }, { PlayerIm
     render() {
 
         return (
-            <div className="Myrows">
-                <label>Name:</label><textarea className="PlayerName" value={
+            <Card style={{width: '18rem'}}>
+                <Card.Body>
+                    <Card.Title>Add Player To game</Card.Title>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item><label>Name:</label><textarea className="PlayerName" value={
                 this.state.PlayerName
-            } onChange={this.handleInputChange}/>
-                <label>Image Url</label><textarea className="PlayerImage" value={
+                        } onChange={this.handleInputChange}/></ListGroup.Item>
+                        <ListGroup.Item><label>Image Url</label><textarea className="PlayerImage" value={
                 this.state.PlayerImage
-            } onChange={this.handleInputChange}/>
-                <button onClick={() => this.ButtonOnClick()}>Add Player</button>
-            </div>
+                        } onChange={this.handleInputChange}/></ListGroup.Item>
+                        <ListGroup.Item><Button onClick={() => this.ButtonOnClick()}>Add Player</Button></ListGroup.Item>
+                    </ListGroup>
+                </Card.Body>
+            </Card>
         );
     }
 
     ButtonOnClick() {
-        // @ts-ignore
         let NewPlayer: PlayerType = {
             Imageurl: this.state.PlayerImage,
             Name: this.state.PlayerName,
