@@ -39,7 +39,7 @@ class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
 class Player extends React.Component<{ PlayerInfo: PlayerType }> {
     render() {
 
-        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Aggressiveness, Allies, Statuses, MaxFullness, Tools} = this.props.PlayerInfo;
+        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Allies, Statuses, MaxFullness, Tools} = this.props.PlayerInfo;
         return (
             <Card style={{width: '18rem'}}>
                 <Card.Img variant="top" src={`${Imageurl}%`}/>
