@@ -6,6 +6,23 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import InnerGameMechanics from "./InnerGameMechanics"
 
+/*
+An example of that the playerObject we are passing is
+    public Playerlist: Playerlisttype = [{
+        Imageurl: "https://i.imgur.com/Tc3nzoW.png",
+        Name: "ASS",
+        Health: 100,
+        MaxHealth: 100,
+        Fullness: 100,
+        MaxFullness: 100,
+        KinkyNess: 100,
+        Aggressiveness: 100,
+        Allies: ["John", "Michel", "Smith"],
+        Statuses: ["Pooltoy"],
+        Tools: ["aaa"]
+    }];
+*/
+
 class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
     constructor(props: Readonly<{ PlayerCallback: Function; }>) {
         super(props);
