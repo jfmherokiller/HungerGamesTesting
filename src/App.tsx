@@ -35,10 +35,10 @@ class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
 }
 
 
-class Player extends React.Component<{PlayerInfo:PlayerType}> {
+class Player extends React.Component<{ PlayerInfo: PlayerType }> {
     render() {
 
-        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Aggressiveness, Allies, Statuses, MaxFullness,Tools} = this.props.PlayerInfo;
+        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Aggressiveness, Allies, Statuses, MaxFullness, Tools} = this.props.PlayerInfo;
         return (
             <Card style={{width: '18rem'}}>
                 <Card.Img variant="top" src={`${Imageurl}%`}/>
@@ -64,49 +64,36 @@ class Player extends React.Component<{PlayerInfo:PlayerType}> {
 }
 
 
+class Game extends React.Component<{}, { PlayerList: Playerlisttype, Day: number, TextboxInfo: string }> {
 
-class Game extends React.Component<{}, { PlayerList: Playerlisttype, Day:number,TextboxInfo:string}> {
-    public Playerlist: Playerlisttype = [{
-        Imageurl: "https://i.imgur.com/Tc3nzoW.png",
-        Name: "ASS",
-        Health: 100,
-        MaxHealth: 100,
-        Fullness: 100,
-        MaxFullness: 100,
-        KinkyNess: 100,
-        Aggressiveness: 100,
-        Allies: ["John", "Michel", "Smith"],
-        Statuses: ["Pooltoy"],
-        Tools:["aaa"]
-    }];
 
     constructor(props: any) {
         super(props);
-        this.state = {PlayerList: [],Day:-1,TextboxInfo:""};
+        this.state = {PlayerList: [], Day: -1, TextboxInfo: ""};
     }
 
     render() {
-        return ([<label>Day:{this.state.Day}</label>,this.renderPlayerBits(),                <PlayButton PlayerCallback={this.AdvanceDay.bind(this)}/>,
+        return ([<label>Day:{this.state.Day}</label>, this.renderPlayerBits(),
+            <PlayButton PlayerCallback={this.AdvanceDay.bind(this)}/>,
             <textarea className="OutputFeild" value={this.state.TextboxInfo}/>])
 
     }
 
-    static renderPlayer(PlayerObject:PlayerType) {
-        // @ts-ignore
+    static renderPlayer(PlayerObject: PlayerType) {
         return <div className="Myrow"><Player PlayerInfo={PlayerObject}/></div>;
     }
 
     renderPlayerBits() {
-        let output: any[] = this.state.PlayerList.map((value: PlayerType) => {
+        let ListOfPlayersRendered: any[] = this.state.PlayerList.map((value: PlayerType) => {
             return Game.renderPlayer(value);
         });
         let PlayerAdder = <AddPlayer PlayerCallback={this.AcceptNewPlayer.bind(this)}/>;
 
-        let final = [<div className="Myrows">{output}</div>];
-        if(this.state.Day === -1) {
-            final.push(PlayerAdder)
+        let OutputVariable = [<div className="Myrows">{ListOfPlayersRendered}</div>];
+        if (this.state.Day === -1) {
+            OutputVariable.push(PlayerAdder)
         }
-        return final;
+        return OutputVariable;
     }
 
     AcceptNewPlayer(PlayerObject: PlayerType) {
@@ -114,9 +101,11 @@ class Game extends React.Component<{}, { PlayerList: Playerlisttype, Day:number,
         oldList.push(PlayerObject);
         this.setState({PlayerList: oldList})
     }
+
     AdvanceDay() {
-        this.setState({Day: this.state.Day +1});
-        let AdvancedMechanic = new InnerGameMechanics(this.state.PlayerList,this.state.Day);
+        this.setState({Day: this.state.Day + 1});
+        let AdvancedMechanic = new InnerGameMechanics(this.state.PlayerList, this.state.Day);
+        //this is where we will apply the game mechanics in the other file.
         let Output = AdvancedMechanic.RunRound();
     }
 }
@@ -150,17 +139,13 @@ class AddPlayer extends React.Component<{ PlayerCallback: Function }, { PlayerIm
     render() {
 
         return (
-            <div className="PlayerData">
-                <label>Image Url</label><textarea className="PlayerImage" value={
-                // @ts-ignore
-                this.state.Url
-            } onChange={this.handleInputChange}/>
-                <br/>
+            <div className="Myrows">
                 <label>Name:</label><textarea className="PlayerName" value={
-                // @ts-ignore
-                this.state.Name
+                this.state.PlayerName
             } onChange={this.handleInputChange}/>
-                <br/>
+                <label>Image Url</label><textarea className="PlayerImage" value={
+                this.state.PlayerImage
+            } onChange={this.handleInputChange}/>
                 <button onClick={() => this.ButtonOnClick()}>Add Player</button>
             </div>
         );
@@ -179,7 +164,7 @@ class AddPlayer extends React.Component<{ PlayerCallback: Function }, { PlayerIm
             Aggressiveness: 0,
             Allies: [],
             Statuses: [],
-            Tools:[]
+            Tools: []
         };
         this.props.PlayerCallback(NewPlayer);
     }
@@ -189,7 +174,7 @@ const App: React.FC = () => {
     return (
         <div className="App">
 
-                <Game/>
+            <Game/>
 
         </div>
     );
