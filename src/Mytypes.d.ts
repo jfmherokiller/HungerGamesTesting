@@ -1,0 +1,2 @@
+type PlayerType = { Imageurl: string; Name: string; Health: number; MaxHealth: number; Fullness: number; KinkyNess: number; MaxFullness: number; Aggressiveness: number; Allies: any; Statuses: any; Tools:any; };
+type Playerlisttype = Array<PlayerType>;
