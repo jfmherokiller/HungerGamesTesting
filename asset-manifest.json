@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/HungerGamesTesting/static/css/main.a582c8eb.chunk.css",
+    "main.js": "/HungerGamesTesting/static/js/main.13aba3ed.chunk.js",
+    "main.js.map": "/HungerGamesTesting/static/js/main.13aba3ed.chunk.js.map",
+    "runtime~main.js": "/HungerGamesTesting/static/js/runtime~main.d29c18b9.js",
+    "runtime~main.js.map": "/HungerGamesTesting/static/js/runtime~main.d29c18b9.js.map",
+    "static/css/2.266e55a5.chunk.css": "/HungerGamesTesting/static/css/2.266e55a5.chunk.css",
+    "static/js/2.e0f37971.chunk.js": "/HungerGamesTesting/static/js/2.e0f37971.chunk.js",
+    "static/js/2.e0f37971.chunk.js.map": "/HungerGamesTesting/static/js/2.e0f37971.chunk.js.map",
+    "index.html": "/HungerGamesTesting/index.html",
+    "precache-manifest.ec0a475bd37523dec78e6f75c9095ff3.js": "/HungerGamesTesting/precache-manifest.ec0a475bd37523dec78e6f75c9095ff3.js",
+    "service-worker.js": "/HungerGamesTesting/service-worker.js",
+    "static/css/2.266e55a5.chunk.css.map": "/HungerGamesTesting/static/css/2.266e55a5.chunk.css.map",
+    "static/css/main.a582c8eb.chunk.css.map": "/HungerGamesTesting/static/css/main.a582c8eb.chunk.css.map"
+  }
+}
