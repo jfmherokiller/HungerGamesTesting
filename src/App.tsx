@@ -6,6 +6,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import InnerGameMechanics from "./InnerGameMechanics"
+
 class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
     constructor(props: Readonly<{ PlayerCallback: Function; }>) {
         super(props);
@@ -17,19 +18,11 @@ class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
     }
 }
 
-class OutputFeild extends React.Component {
-    render() {
-        return (
-            <textarea className="OutputFeild"/>
-        );
-    }
-}
 
-
-class Player extends React.Component {
+class Player extends React.Component<{PlayerInfo:PlayerType}> {
     render() {
 
-        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Aggressiveness, Allies, Statuses, MaxFullness,Tools} = this.props as any;
+        const {Imageurl, Name, Health, MaxHealth, Fullness, KinkyNess, Aggressiveness, Allies, Statuses, MaxFullness,Tools} = this.props.PlayerInfo;
         return (
             <Card style={{width: '18rem'}}>
                 <Card.Img variant="top" src={`${Imageurl}%`}/>
@@ -82,15 +75,14 @@ class Game extends React.Component<{}, { PlayerList: Playerlisttype, Day:number,
 
     }
 
-    static renderPlayer(ImageUrl: string, Name: string, Health: number, Fullness: number, KinkyNess: number, Aggressiveness: number, Allies: any, Statuses: any, Tools:any) {
+    static renderPlayer(PlayerObject:PlayerType) {
         // @ts-ignore
-        return <div className="Myrow"><Player Imageurl={ImageUrl} Name={Name} Health={Health} Fullness={Fullness} KinkyNess={KinkyNess}
-                                            Aggressiveness={Aggressiveness} Allies={Allies} Statuses={Statuses} Tools={Tools}/></div>;
+        return <div className="Myrow"><Player PlayerInfo={PlayerObject}/></div>;
     }
 
     renderPlayerBits() {
         let output: any[] = this.state.PlayerList.map((value: PlayerType) => {
-            return Game.renderPlayer(value.Imageurl, value.Name, value.Health, value.Fullness, value.KinkyNess, value.Aggressiveness, value.Allies, value.Statuses, value.Tools);
+            return Game.renderPlayer(value);
         });
         let PlayerAdder = <AddPlayer PlayerCallback={this.AcceptNewPlayer.bind(this)}/>;
 
