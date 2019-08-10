@@ -46,7 +46,7 @@ class InnerGameMechanics {
 
     GenerateAlliences() {
         let ListOfIndexes: number[] = [...Array.from(Array(this.PlayerList.length - 1).keys())];
-        GenericUtilityFunctions.shuffleArray(ListOfIndexes);
+        ListOfIndexes = GenericUtilityFunctions.shuffleArray(ListOfIndexes);
         let Pairs = GenericUtilityFunctions.SplitArray(ListOfIndexes);
         Pairs.forEach(value => {
             if (value.length === 2) {
@@ -81,6 +81,7 @@ class GenericUtilityFunctions {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+        return array
     }
 
     static SplitArray(inputArray: number[]) {
