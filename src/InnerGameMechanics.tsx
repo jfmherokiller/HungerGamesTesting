@@ -48,15 +48,41 @@ class InnerGameMechanics {
         let ListOfIndexes: number[] = [...Array.from(Array(this.PlayerList.length - 1).keys())];
         ListOfIndexes = GenericUtilityFunctions.shuffleArray(ListOfIndexes);
         let Pairs = GenericUtilityFunctions.SplitArray(ListOfIndexes);
-        Pairs.forEach(value => {
+        for (const value of Pairs) {
             if (value.length === 2) {
                 let Player1 = this.PlayerList[value[0]];
                 let Player2 = this.PlayerList[value[1]];
 
                 this.FormedAlliance(Player1, Player2);
             }
-        });
+        }
+    }
 
+    FormAlliance() {
+        for (let person of this.PlayerList) {
+            let randNum = Math.floor(Math.random() * this.PlayerList.length * 3);
+            if (randNum < this.PlayerList.length && this.PlayerList.indexOf(person) != randNum && person.Allies.indexOf(this.PlayerList[randNum]) < 0) {
+                let Player1 = person;
+                let Player2 = this.PlayerList[randNum];
+
+                this.FormedAlliance(Player1, Player2);
+            }
+        }
+    }
+    FormedAlliance2(Player1: PlayerType, Player2: PlayerType) {
+        this.ActionsTaken.push(Player1.Name + " Formed alliance with " + Player2.Name);
+        Player1.Allies.push(Player2);
+        for (let Player1Ally of Player1.Allies){
+            if (Player2.Allies.indexOf(Player1Ally) < 0){
+                Player2.Allies.push(Player1Ally);
+            }
+        }
+        Player2.Allies.push(Player1);
+        for (let Player2Ally of Player2.Allies){
+            if (Player1.Allies.indexOf(Player2Ally) < 0){
+                Player1.Allies.push(Player2Ally);
+            }
+        }
     }
 
     FormedAlliance(Player1: PlayerType, Player2: PlayerType) {

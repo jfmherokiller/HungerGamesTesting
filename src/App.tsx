@@ -24,10 +24,11 @@ An example of that the playerObject we are passing is
     }];
 */
 
-class PlayButton extends React.Component<{ PlayerCallback: Function },{}> {
+class PlayButton extends React.Component<{ PlayerCallback: Function }, {}> {
     constructor(props: Readonly<{ PlayerCallback: Function; }>) {
         super(props);
     }
+
     render() {
         return (
             <Button className="PlayRound" onClick={() => this.props.PlayerCallback()}> Play Round</Button>
@@ -50,7 +51,9 @@ class Player extends React.Component<{ PlayerInfo: PlayerType }> {
                                                             label={`${Health}%`}/></ListGroup.Item>
                         <ListGroup.Item>Fullness:<ProgressBar now={Fullness} max={MaxFullness} label={`${Fullness}%`}/></ListGroup.Item>
                         <ListGroup.Item>Kinkyness: {KinkyNess}</ListGroup.Item>
-                        <ListGroup.Item>{Player.GenerateList("Allies", Allies)}</ListGroup.Item>
+                        <ListGroup.Item>{Player.GenerateList("Allies", Allies.map(value => {
+                            return value.Name;
+                        }))}</ListGroup.Item>
                         <ListGroup.Item>{Player.GenerateList("Statuses", Statuses)}</ListGroup.Item>
                         <ListGroup.Item>{Player.GenerateList("Tools", Tools)}</ListGroup.Item>
                     </ListGroup>
@@ -145,12 +148,13 @@ class AddPlayer extends React.Component<{ PlayerCallback: Function }, { PlayerIm
                     <Card.Title>Add Player To game</Card.Title>
                     <ListGroup variant="flush">
                         <ListGroup.Item><label>Name:</label><textarea className="PlayerName" value={
-                this.state.PlayerName
+                            this.state.PlayerName
                         } onChange={this.handleInputChange}/></ListGroup.Item>
                         <ListGroup.Item><label>Image Url</label><textarea className="PlayerImage" value={
-                this.state.PlayerImage
+                            this.state.PlayerImage
                         } onChange={this.handleInputChange}/></ListGroup.Item>
-                        <ListGroup.Item><Button onClick={() => this.ButtonOnClick()}>Add Player</Button></ListGroup.Item>
+                        <ListGroup.Item><Button onClick={() => this.ButtonOnClick()}>Add
+                            Player</Button></ListGroup.Item>
                     </ListGroup>
                 </Card.Body>
             </Card>
