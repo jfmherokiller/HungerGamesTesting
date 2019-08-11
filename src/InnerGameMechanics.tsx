@@ -61,8 +61,8 @@ class InnerGameMechanics {
 
     FormedAlliance(Player1: PlayerType, Player2: PlayerType) {
         this.ActionsTaken.push(Player1.Name + " Formed alliance with " + Player2.Name);
-        Player1.Allies.push(Player2.Name);
-        Player2.Allies.push(Player1.Name);
+        Player1.Allies.push(Player2);
+        Player2.Allies.push(Player1);
     }
 
     RunRound() {
