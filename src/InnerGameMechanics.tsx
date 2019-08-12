@@ -11,7 +11,9 @@ class InnerGameMechanics {
         this.Day = Day;
         this.ActionsTaken = [];
     }
-
+    UpdateStatus(Statusvalue: string) {
+        this.ActionsTaken.push(Statusvalue);
+    }
     Exploration() {
 
     }
@@ -35,29 +37,32 @@ class InnerGameMechanics {
     Raid() {
 
     }
-
-    Vore2(Attacker: PlayerType, Victim: PlayerType) {
+    Vore(Attacker: PlayerType, Victim: PlayerType) {
         let attackerChance = Attacker.Aggressiveness + Attacker.KinkyNess;
         let victimChance = (Victim.Health + Victim.Fullness) + (2 * Math.random());
         if (attackerChance > victimChance) {
             if (Victim.Health > 0.5) {
-                this.ActionsTaken.push(Attacker.Name + " swallowed " + Victim.Name + " whole! " + Victim.Name + " struggles against it, but in the end were digested.");
-                Attacker.Health += (.5 * Victim.Health);
-                Attacker.Fullness += ((.5 * Victim.Fullness) + 0.2);
-                this.PlayerList.splice(this.PlayerList.indexOf(Victim), 1);
+                this.VoreHealthGreaterThenHalf(Attacker, Victim);
             } else {
-                this.ActionsTaken.push(Attacker.Name + " swallowed " + Victim.Name + " whole! " + Victim.Name + " struggles against it, and breaks out! Defeating " + Attacker.Name + " in the process!");
-                Victim.Health -= Math.random() * 0.5;
-                this.PlayerList.splice(this.PlayerList.indexOf(Attacker), 1);
+                this.VoreHealthLessThanHalf(Attacker, Victim);
             }
         } else {
-            this.ActionsTaken.push(Attacker.Name + " attempted to swallow " + Victim.Name + " whole! But they were unable to get them down their throat! In retaliation, " + Victim.Name + " attacked back!");
+            this.UpdateStatus(`${Attacker.Name} attempted to swallow ${Victim.Name} whole! But they were unable to get them down their throat! In retaliation, ${Victim.Name} attacked back!`);
             this.DirectAttack()
         }
     }
 
-    Vore() {
+    private VoreHealthLessThanHalf(Attacker: PlayerType, Victim: PlayerType) {
+        this.UpdateStatus(`${Attacker.Name} swallowed ${Victim.Name} whole! ${Victim.Name} struggles against it, and breaks out! Defeating ${Attacker.Name} in the process!`);
+        Victim.Health -= Math.random() * 0.5;
+        this.PlayerList.splice(this.PlayerList.indexOf(Attacker), 1);
+    }
 
+    private VoreHealthGreaterThenHalf(Attacker: PlayerType, Victim: PlayerType) {
+        this.UpdateStatus(Attacker.Name + " swallowed " + Victim.Name + " whole! " + Victim.Name + " struggles against it, but in the end were digested.");
+        Attacker.Health += (.5 * Victim.Health);
+        Attacker.Fullness += ((.5 * Victim.Fullness) + 0.2);
+        this.PlayerList.splice(this.PlayerList.indexOf(Victim), 1);
     }
 
     DirectAttack() {
