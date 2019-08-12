@@ -36,6 +36,26 @@ class InnerGameMechanics {
 
     }
 
+    Vore2(Attacker: PlayerType, Victim: PlayerType) {
+        let attackerChance = Attacker.Aggressiveness + Attacker.KinkyNess;
+        let victimChance = (Victim.Health + Victim.Fullness) + (2 * Math.random());
+        if (attackerChance > victimChance) {
+            if (Victim.Health > 0.5) {
+                this.ActionsTaken.push(Attacker.Name + " swallowed " + Victim.Name + " whole! " + Victim.Name + " struggles against it, but in the end were digested.");
+                Attacker.Health += (.5 * Victim.Health);
+                Attacker.Fullness += ((.5 * Victim.Fullness) + 0.2);
+                this.PlayerList.splice(this.PlayerList.indexOf(Victim), 1);
+            } else {
+                this.ActionsTaken.push(Attacker.Name + " swallowed " + Victim.Name + " whole! " + Victim.Name + " struggles against it, and breaks out! Defeating " + Attacker.Name + " in the process!");
+                Victim.Health -= Math.random() * 0.5;
+                this.PlayerList.splice(this.PlayerList.indexOf(Attacker), 1);
+            }
+        } else {
+            this.ActionsTaken.push(Attacker.Name + " attempted to swallow " + Victim.Name + " whole! But they were unable to get them down their throat! In retaliation, " + Victim.Name + " attacked back!");
+            this.DirectAttack()
+        }
+    }
+
     Vore() {
 
     }
@@ -69,17 +89,18 @@ class InnerGameMechanics {
             }
         }
     }
+
     FormedAlliance2(Player1: PlayerType, Player2: PlayerType) {
         this.ActionsTaken.push(Player1.Name + " Formed alliance with " + Player2.Name);
         Player1.Allies.push(Player2);
-        for (let Player1Ally of Player1.Allies){
-            if (Player2.Allies.indexOf(Player1Ally) < 0){
+        for (let Player1Ally of Player1.Allies) {
+            if (Player2.Allies.indexOf(Player1Ally) < 0) {
                 Player2.Allies.push(Player1Ally);
             }
         }
         Player2.Allies.push(Player1);
-        for (let Player2Ally of Player2.Allies){
-            if (Player1.Allies.indexOf(Player2Ally) < 0){
+        for (let Player2Ally of Player2.Allies) {
+            if (Player1.Allies.indexOf(Player2Ally) < 0) {
                 Player1.Allies.push(Player2Ally);
             }
         }
